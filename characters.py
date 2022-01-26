@@ -6,6 +6,7 @@ You may replace parts of this with your own implementation - but
 note the NEW comments for some key changes from the original Battle lab. 
 '''
 
+
 class Character (object):
     ''' 
     The maximum dexterity of any character is 100.  

@@ -4,6 +4,7 @@ from characters import *
 
 
 class Screen_CharacterSelection (tkinter.Frame, Character, CharacterRoster):
+
     def __init__ (self, master, roster, callback_on_selected):
         super().__init__(master)
        # Save the CharacterRoster  
@@ -28,19 +29,17 @@ class Screen_CharacterSelection (tkinter.Frame, Character, CharacterRoster):
         row_index = 1
         value_index = 0
         for character in self.roster.character_list:
-            Radiobutton(self, text = character.name, variable = self.character_index, value = value_index).grid(row = row_index, column = 0, sticky = W)
-            imageSmall = tkinter.PhotoImage(file="images/" + character.small_image)
-            w = tkinter.Label (self, image = imageSmall)
+            Radiobutton(self, text = character.name, variable = self.character_index, value = value_index
+                       ).grid(row = row_index, column = 0, sticky = W)
+            imageSmall = PhotoImage(file="images/" + character.small_image)
+            w = Label (self,
+                     image = imageSmall)
             w.photo = imageSmall # saving the image as a property is required for "saving" the image. It's odd.
-            w.grid(row = row_index, column = 1, sticky = W)
-            Label(self, text = character.hit_points).grid(row = row_index, column = 2, sticky = W)
-            Label(self, text = character.dexterity).grid(row = row_index, column = 3, sticky = W)
-            Label(self, text = character.strength).grid(row = row_index, column = 4, sticky = W)
+            w.grid (row = row_index, column = 1, sticky = W)
+            
             row_index += 1
             value_index += 1
-
-        Button(self, text = "Character Selected!", command = self.selected_clicked).grid(row = row_index, column = 5, sticky = W)
-
+            
         '''
         This method creates all of the widgets character selector page.
         The information about each character should be derived from self.roster, 
@@ -57,18 +56,8 @@ class Screen_CharacterSelection (tkinter.Frame, Character, CharacterRoster):
         
         The variable self.character_index has been instantiated for your convenience below.
         
-        ########
-
-        Here is some sample code for including an image on a page:   (char is a Character object)
-            
-            imageSmall = tkinter.PhotoImage(file="images/" + char.small_image);
-            w= tkinter.Label (self,
-                        image = imageSmall, 
-                         )
-            w.photo = imageSmall # saving the image as a property is required for "saving" the image. It's odd.
-
-            w.grid (ADD PARAMETERS HERE)
         '''
+        
         
         #
         # TO DO

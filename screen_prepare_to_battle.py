@@ -18,9 +18,12 @@ class Screen_PrepareToBattle (tkinter.Frame):
     
     def create_widgets (self):
 
+        #title
         Label(self, text = "You").grid(row = 0, column = 2, sticky = W)
         Label(self, text = "Computer").grid(row = 0, column = 5, sticky = W)
 
+        #User combatant
+        Label(self, text = self.player1)
         
 
         
