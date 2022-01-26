@@ -48,7 +48,7 @@ class Screen_PrepareToBattle (tkinter.Frame, Character, CharacterRoster):
 
         #Attack Button
         Label(self, text = "").grid(row = 6, column = 0)
-        Button(self, text = "Commence Battle", command = self.commence_battle_clicked, font = "20").grid(row = 7, column = 2, columnspan =2)
+        Button(self, text = "Commence Battle", command = self.commence_battle_clicked).grid(row = 7, column = 2, columnspan =2)
 
         '''
         This method creates all of the widgets the prepare to battle page.
