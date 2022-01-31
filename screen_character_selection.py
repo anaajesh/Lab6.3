@@ -2,7 +2,6 @@ import tkinter
 from tkinter import *
 from characters import *
 
-
 class Screen_CharacterSelection (tkinter.Frame, Character, CharacterRoster):
 
     def __init__ (self, master, roster, callback_on_selected):
@@ -37,9 +36,9 @@ class Screen_CharacterSelection (tkinter.Frame, Character, CharacterRoster):
             w.photo = imageSmall # saving the image as a property is required for "saving" the image. It's odd.
             w.grid (row = row_index, column = 1, sticky = W)
             
-            Label(self, text = f"{self.hit_points}").grid(row = row_index, column = 0, columnspan = 4, sticky = E)
-            Label(self, text = f"{self.dexterity}").grid(row = row_index, column = 1, columnspan = 4)
-            Label(self, text = f"{self.strength}").grid(row = row_index, column = 2, columnspan = 4, sticky = W)
+            Label(self, text = f"{character.hit_points}").grid(row = row_index, column = 2)
+            Label(self, text = f"{character.dexterity}").grid(row = row_index, column = 3)
+            Label(self, text = f"{character.strength}").grid(row = row_index, column = 4)
             
             row_index += 1
             value_index += 1
@@ -62,11 +61,6 @@ class Screen_CharacterSelection (tkinter.Frame, Character, CharacterRoster):
         The variable self.character_index has been instantiated for your convenience below.
         
         '''
-        
-        
-        #
-        # TO DO
-        #
        
  
     def selected_clicked(self):
