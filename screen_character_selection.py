@@ -44,6 +44,7 @@ class Screen_CharacterSelection (tkinter.Frame, Character, CharacterRoster):
             row_index += 1
             value_index += 1
             
+        Button(self, text = "Select Character!!!", command = self.selected_clicked).grid(row = row_index, column = 6, sticky = W)
         '''
         This method creates all of the widgets character selector page.
         The information about each character should be derived from self.roster, 

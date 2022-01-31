@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import *
 
 class Screen_Battle (tkinter.Frame):
     def __init__ (self, master, player1, player2, callback_on_exit):
@@ -19,6 +20,33 @@ class Screen_Battle (tkinter.Frame):
         self.grid()
         
     def create_widgets (self):
+
+        Label(self, text = "You", font = "24").grid(row = 0, column = 1)
+        Label(self, text = "Computer", font = "24").grid(row = 0, column = 4)
+
+        #User combatant
+        imageSmall = tkinter.PhotoImage(file="images/" + self.player1.large_image)
+        w = tkinter.Label (self,
+                        image = imageSmall, 
+                         )
+        w.photo = imageSmall # saving the image as a property is required for "saving" the image. It's odd.
+        w.grid(row = 1, column = 0, columnspan = 3, sticky = W)
+        Label(self, text = f"{self.player1.hit_points}/{self.player1.hit_points} HP", font = "20").grid(row = 3, column = 1)
+
+        #Computer Combatant
+        imageSmall = tkinter.PhotoImage(file="images/" + self.player2.large_image)
+        w = tkinter.Label (self,
+                        image = imageSmall, 
+                         )
+        w.photo = imageSmall # saving the image as a property is required for "saving" the image. It's odd.
+        w.grid(row = 1, column = 3, columnspan = 3, sticky = W) 
+        Label(self, text = f"{self.player2.hit_points}/{self.player2.hit_points} HP", font = "20").grid(row = 3, column = 4)
+
+        #attack button
+        Button(self, text = "Attack!", command = self.attack_clicked).grid(row = 7, column = 2, columnspan =2)
+        
+
+
         '''
         This method creates all of the (initial) widgets for the battle page.
         '''
@@ -27,6 +55,9 @@ class Screen_Battle (tkinter.Frame):
         #
         
     def attack_clicked(self):
+
+        
+
         ''' This method is called when the user presses the "Attack" button.
             
             This method does the following:
