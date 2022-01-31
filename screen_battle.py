@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import *
+import random
 
 class Screen_Battle (tkinter.Frame):
     def __init__ (self, master, player1, player2, callback_on_exit):
@@ -21,42 +22,41 @@ class Screen_Battle (tkinter.Frame):
         
     def create_widgets (self):
 
-        Label(self, text = "You", font = "24").grid(row = 0, column = 1)
-        Label(self, text = "Computer", font = "24").grid(row = 0, column = 4)
+        self.attack_messages = Label(self, text = "", font = "16")
+        self.attack_messages.grid(row = 0, column = 4, columnspan = 2)
+        self.winner_message = Label(self, text = "", fg = "red", font = "16")
+        self.winner_message.grid(row = 2, column = 4)
+
+        Label(self, text = "You", font = "24").grid(row = 3, column = 0)
+        Label(self, text = "Computer", font = "24").grid(row = 3, column = 4)
 
         #User combatant
         imageSmall = tkinter.PhotoImage(file="images/" + self.player1.large_image)
-        w = tkinter.Label (self,
-                        image = imageSmall, 
-                         )
+        w = tkinter.Label (self, image = imageSmall)
         w.photo = imageSmall # saving the image as a property is required for "saving" the image. It's odd.
-        w.grid(row = 1, column = 0, columnspan = 3, sticky = W)
-        Label(self, text = f"{self.player1.hit_points}/{self.player1.hit_points} HP", font = "20").grid(row = 3, column = 1)
+        w.grid(row = 4, column = 0, columnspan = 3, sticky = W)
+        self.p1_fullhp = self.player1.hit_points
+        self.player_hp = Label(self, text = f"{self.player1.hit_points}/{self.p1_fullhp} HP", font = "20")
+        self.player_hp.grid(row = 5, column = 0)
 
         #Computer Combatant
         imageSmall = tkinter.PhotoImage(file="images/" + self.player2.large_image)
-        w = tkinter.Label (self,
-                        image = imageSmall, 
-                         )
+        w = tkinter.Label (self, image = imageSmall)
         w.photo = imageSmall # saving the image as a property is required for "saving" the image. It's odd.
-        w.grid(row = 1, column = 3, columnspan = 3, sticky = W) 
-        Label(self, text = f"{self.player2.hit_points}/{self.player2.hit_points} HP", font = "20").grid(row = 3, column = 4)
+        w.grid(row = 4, column = 4, columnspan = 3, sticky = W) 
+        self.p2_fullhp = self.player2.hit_points
+        self.computer_hp = Label(self, text = f"{self.player2.hit_points}/{self.p2_fullhp} HP", font = "20")
+        self.computer_hp.grid(row = 5, column = 4)
 
         #attack button
-        Button(self, text = "Attack!", command = self.attack_clicked).grid(row = 7, column = 2, columnspan =2)
+        self.attack_button = Button(self, text = "Attack!", command = self.attack_clicked)
+        self.attack_button.grid(row = 7, column = 2, columnspan =2)
         
-
-
         '''
         This method creates all of the (initial) widgets for the battle page.
         '''
-        #
-        # TO DO
-        #
         
     def attack_clicked(self):
-
-        
 
         ''' This method is called when the user presses the "Attack" button.
             
@@ -68,18 +68,29 @@ class Screen_Battle (tkinter.Frame):
 
             To remove a widget, use the destroy() method. For example:
     
-                self.button.destroy()   
-        '''        
-        #
-        # TO DO
-        #
-                                            
+                self.button.destroy()
+        '''
+
+        if self.player1.hit_points > 0 and self.player2.hit_points > 0:
+
+            self.attack_messages["text"] = self.player2.attack(self.player1)
+
+            if self.player2.hit_points > 0:
+                self.attack_messages["text"] += "\n" + self.player1.attack(self.player2)
+
+            self.player_hp["text"] = f"{self.player1.hit_points}/{self.p1_fullhp} HP"
+            self.computer_hp["text"] = f"{self.player2.hit_points}/{self.p2_fullhp} HP"
+
+        if self.player2.hit_points <= 0:
+            self.winner_message["text"] = f"{self.player1.name} is victorious!"
+            self.attack_button.destroy()
+            Button(self, text = "Exit!", command = self.exit_clicked, bg = "black", fg = "red", font = "24").grid(row = 7, column = 6)
+        elif self.player1.hit_points <= 0:
+            self.winner_message["text"] = f"{self.player2.name} is victorious!"
+            self.attack_button.destroy()
+            Button(self, text = "Exit!", command = self.exit_clicked, bg = "black", fg = "red", font = "24").grid(row = 7, column = 6)
+
     def exit_clicked(self):
         ''' This method is called when the Exit button is clicked. 
             It passes control back to the callback method. '''        
         self.callback_on_exit()
-  
-            
-            
-            
-            
